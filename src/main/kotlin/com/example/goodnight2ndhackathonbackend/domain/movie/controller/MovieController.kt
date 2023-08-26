@@ -2,6 +2,7 @@ package com.example.goodnight2ndhackathonbackend.domain.movie.controller
 
 import com.example.goodnight2ndhackathonbackend.domain.movie.dto.MovieCreateRequest
 import com.example.goodnight2ndhackathonbackend.domain.movie.dto.MovieInfo
+import com.example.goodnight2ndhackathonbackend.domain.movie.dto.MovieUpdateRequest
 import com.example.goodnight2ndhackathonbackend.domain.movie.service.MovieService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -23,6 +24,11 @@ class MovieController(
         return ResponseEntity.ok(movieInfo)
     }
 
+    @PutMapping("/movies")
+    fun updateMovie(@RequestBody movieUpdateRequest: MovieUpdateRequest): ResponseEntity<MovieInfo> {
+        val movieInfo = movieService.updateMovie(movieUpdateRequest)
+        return ResponseEntity.ok(movieInfo)
+    }
 
     @DeleteMapping("/movies/{id}")
     fun deleteMovie(@PathVariable("id") id: Long): ResponseEntity<MovieInfo> {
