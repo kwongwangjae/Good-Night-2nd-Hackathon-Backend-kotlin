@@ -16,4 +16,9 @@ class MovieService(
         val savedMovie = movieRepository.save(newMovie)
         return movieMapper.mapMovieEntityToMovieInfo(savedMovie)
     }
+    fun findMovieId(id: Long): MovieInfo {
+        val findMovie = movieRepository.findById(id)
+                .orElseThrow { IllegalArgumentException("해당하는 영화가 없습니다. ID: $id") }
+        return movieMapper.mapMovieEntityToMovieInfo(findMovie)
+    }
 }
