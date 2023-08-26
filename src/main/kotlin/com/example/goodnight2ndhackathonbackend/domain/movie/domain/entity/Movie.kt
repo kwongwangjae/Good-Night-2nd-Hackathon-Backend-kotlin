@@ -1,6 +1,7 @@
 package com.example.goodnight2ndhackathonbackend.domain.movie.domain.entity
 
 import com.example.goodnight2ndhackathonbackend.domain.movie.dto.MovieUpdateRequest
+import com.example.goodnight2ndhackathonbackend.domain.review.domain.entity.Review
 import com.example.goodnight2ndhackathonbackend.global.common.BaseEntity
 import java.time.LocalDate
 import javax.persistence.*
@@ -16,6 +17,9 @@ class Movie (    //코틀린에서는 클래스의 생성자를 정의할 때 �
 
         @Enumerated(EnumType.STRING) @Column
     var genre: MovieGenre,
+
+        @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
+        var reviews: List<Review> = emptyList(),
 
         @Column(nullable = false)
     var releaseDate: LocalDate,
