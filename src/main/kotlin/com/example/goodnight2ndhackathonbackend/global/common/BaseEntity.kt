@@ -9,9 +9,7 @@ import javax.persistence.EntityListeners
 import javax.persistence.MappedSuperclass
 
 @MappedSuperclass
-@EntityListeners(AbstractMethodError::class)
-@DynamicInsert
-class BaseEntity {
+open class BaseEntity {   //open 키워드는 이 클래스가 상속될 수 있음을 나타낸다.
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     var createdAt: LocalDateTime? = null
