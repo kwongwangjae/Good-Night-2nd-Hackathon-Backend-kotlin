@@ -21,4 +21,13 @@ class MovieService(
                 .orElseThrow { IllegalArgumentException("해당하는 영화가 없습니다. ID: $id") }
         return movieMapper.mapMovieEntityToMovieInfo(findMovie)
     }
+
+    fun deleteMovie(id: Long): MovieInfo {
+        val findMovie = movieRepository.findById(id)
+                .orElseThrow { IllegalArgumentException("해당하는 영화가 없습니다. ID: $id") }
+        findMovie.isDeleted = true
+        val deletedMovie = movieRepository.save(findMovie)
+        return movieMapper.mapMovieEntityToMovieInfo(deletedMovie)
+    }
+
 }

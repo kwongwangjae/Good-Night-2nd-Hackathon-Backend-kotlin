@@ -23,4 +23,11 @@ class MovieController(
         return ResponseEntity.ok(movieInfo)
     }
 
+
+    @DeleteMapping("/movies/{id}")
+    fun deleteMovie(@PathVariable("id") id: Long): ResponseEntity<MovieInfo> {
+        val movieInfo = movieService.deleteMovie(id)
+        return ResponseEntity.ok(movieInfo)
+    }
+
 }
