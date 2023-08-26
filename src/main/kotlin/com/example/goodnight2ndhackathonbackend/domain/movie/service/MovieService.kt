@@ -2,11 +2,12 @@ package com.example.goodnight2ndhackathonbackend.domain.movie.service
 
 import com.example.goodnight2ndhackathonbackend.domain.movie.domain.entity.Movie
 import com.example.goodnight2ndhackathonbackend.domain.movie.domain.repository.MovieRepository
-import com.example.goodnight2ndhackathonbackend.domain.movie.dto.MovieCreateRequest
-import com.example.goodnight2ndhackathonbackend.domain.movie.dto.MovieInfo
-import com.example.goodnight2ndhackathonbackend.domain.movie.dto.MovieOptionRequest
-import com.example.goodnight2ndhackathonbackend.domain.movie.dto.MovieUpdateRequest
+import com.example.goodnight2ndhackathonbackend.domain.movie.dto.*
 import com.example.goodnight2ndhackathonbackend.domain.movie.mapper.MovieMapper
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 
 @Service
@@ -47,6 +48,11 @@ class MovieService(
         findMovie.updateMovie(movieUpdateRequest)
         val updatedMovie = movieRepository.save(findMovie)
         return movieMapper.mapMovieEntityToMovieInfo(updatedMovie)
+    }
+
+    fun findMoviesWithAvgRatings(page: Int, size: Int): Page<MovieWithAvgRatingProjection> {
+        val pageable: Pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "avgRating"))
+        return movieRepository.findAllWithAvgRatings(pageable)
     }
 
 }

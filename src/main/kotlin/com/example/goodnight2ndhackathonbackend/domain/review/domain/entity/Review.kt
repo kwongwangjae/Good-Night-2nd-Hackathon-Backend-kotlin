@@ -2,6 +2,7 @@ package com.example.goodnight2ndhackathonbackend.domain.review.domain.entity
 
 import com.example.goodnight2ndhackathonbackend.domain.movie.domain.entity.Movie
 import com.example.goodnight2ndhackathonbackend.global.common.BaseEntity
+import com.fasterxml.jackson.annotation.JsonIgnore
 import javax.persistence.*
 
 @Entity
@@ -13,6 +14,7 @@ class Review(
 
         @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "movie_id")
+        @JsonIgnore
         val movie: Movie,
 
         @Column(nullable = false)
