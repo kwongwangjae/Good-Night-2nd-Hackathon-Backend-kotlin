@@ -5,6 +5,7 @@ import com.example.goodnight2ndhackathonbackend.domain.movie.domain.repository.M
 import com.example.goodnight2ndhackathonbackend.domain.review.domain.entity.Review
 import com.example.goodnight2ndhackathonbackend.domain.review.domain.repository.ReviewRepository
 import com.example.goodnight2ndhackathonbackend.domain.review.dto.ReviewCreateRequest
+import com.example.goodnight2ndhackathonbackend.domain.review.dto.ReviewOptionRequest
 import com.example.goodnight2ndhackathonbackend.domain.review.mapper.ReviewMapper
 import org.springframework.stereotype.Service
 
@@ -20,5 +21,9 @@ class ReviewService(
 
         val newReview = reviewMapper.mapCreateReviewToEntity(movie, reviewCreateRequest)
         return reviewRepository.save(newReview)
+    }
+
+    fun getReviews(request: ReviewOptionRequest): List<Review> {
+        return reviewRepository.findByMovieIdAndMinRating(request.movieId, request.minRating)
     }
 }
